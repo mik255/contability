@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-void main() {
+import 'main_stances.dart';
+
+void main() async{
+  await MainStances.init();
   runApp(const MyApp());
 }
 
