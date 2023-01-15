@@ -22,6 +22,10 @@ class PreferenceUtils {
     double? value = prefs.getDouble(key);
     return value;
   }
+  List<String>? getStringList(String key){
+    List<String>? value = prefs.getStringList(key);
+    return value;
+  }
 
   void setString(String key,value)async{
     await prefs.setString(key,value);
