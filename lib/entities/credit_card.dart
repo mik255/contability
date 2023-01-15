@@ -1,13 +1,17 @@
 
-import 'dart:convert';
 
+
+import 'dart:convert';
 import 'debt.dart';
+
+
 enum Status{
   paid,
   open,
   late
 }
 class CreditCard {
+  String id;
   String name;
   String imgPath;
   double balanceAvailableLimit;
@@ -15,27 +19,25 @@ class CreditCard {
   int invoiceClosingDay;
   DateTime lastPaid;
   List<Debt> debts;
-  Status status;
+  late Status status;
   late double totalMonth;
   CreditCard({
+    required this.id,
     required this.name,
     required this.imgPath,
     required this.balanceAvailableLimit,
     required this.invoiceClosingDay,
     required this.balanceTotalLimit,
     required this.debts,
-    required this.status,
     required this.lastPaid,
   });
-  static CreditCard fromJsonEncodedString(String e){
-    return json.decode(e) as CreditCard;
-  }
-  double getTotalOfMonth(){
+
+  double getTotalOfMonthDebts(){
     totalMonth = 0;
-   for (var element in debts) {
-     totalMonth+=element.getCurrentInstallment().value;
-   }
-   return totalMonth;
+    for (var element in debts) {
+      totalMonth+=element.getCurrentInstallment().value;
+    }
+    return totalMonth;
   }
   getStatus(){
     DateTime now = DateTime.now();
@@ -49,4 +51,39 @@ class CreditCard {
     }
     status = Status.open;
   }
+
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'imgPath': imgPath,
+      'balanceAvailableLimit': balanceAvailableLimit,
+      'balanceTotalLimit': balanceTotalLimit,
+      'invoiceClosingDay': invoiceClosingDay,
+      'lastPaid': lastPaid.millisecondsSinceEpoch,
+      'debts': debts.map((x) => x.toMap()).toList(),
+      'status': status.toString(),
+    };
+  }
+
+  factory CreditCard.fromMap(Map<String, dynamic> map) {
+    return CreditCard(
+      id: map['id'] as String,
+      name: map['name'] as String,
+      imgPath: map['imgPath'] as String,
+      balanceAvailableLimit: map['balanceAvailableLimit'] as double,
+      balanceTotalLimit: map['balanceTotalLimit'] as double,
+      invoiceClosingDay: map['invoiceClosingDay'] as int,
+      lastPaid: DateTime.fromMillisecondsSinceEpoch(map['lastPaid'] as int),
+      debts: List<Debt>.from((map['debts'] as List<dynamic>).map<Debt>((x) => Debt.fromMap(x as Map<String,dynamic>),),),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory CreditCard.fromJson(String source) => CreditCard.fromMap(json.decode(source) as Map<String, dynamic>);
 }
+
+
+
