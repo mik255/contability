@@ -1,3 +1,4 @@
+import 'package:contability/core/cache_abstract.dart';
 import 'package:contability/entities/debt.dart';
 import 'package:contability/entities/errorModel.dart';
 
@@ -9,15 +10,10 @@ import '../states/main_state.dart';
 import '../states/sucess_state.dart';
 
 registerOnDB(DebitStoreState value, CreditCard creditCard, Debt debt) async {
+  Cache<CreditCard> cache = Cache<CreditCard>();
   value = DebitLoadingRegisterState();
   try {
-    List<String> dataListFromdb =
-        MainStances.prefs.getStringList('creditCardList') ?? [];
-    List<CreditCard> creditCardList =
-        dataListFromdb.map((e) => CreditCard.fromJson(e)).toList();
-    creditCard.debts.add(debt);
-    List<String> dataList = creditCardList.map((e) => e.toJson()).toList();
-    MainStances.prefs.setStringList('creditCardList', dataList);
+    cache.addItemToList('creditCardList', creditCard);
     value = DebitSuccessRegisterState();
   } catch (e, _) {
     print(e);
