@@ -1,17 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'credit_card.dart';
+part of 'debt.dart';
 
 // **************************************************************************
 // CacheGenerator
 // **************************************************************************
 
-class CreditCardGen {
-  List<CreditCard> getList(String key) {
+class DebtGen {
+  List<Debt> getList(String key) {
     try {
       List<String> dataListFromdb = MainStances.prefs.getStringList(key) ?? [];
-      List<CreditCard> list =
-          dataListFromdb.map((e) => CreditCard.fromJson(e)).toList();
+      List<Debt> list = dataListFromdb.map((e) => Debt.fromJson(e)).toList();
       return list;
     } catch (e, _) {
       rethrow;
@@ -19,7 +18,7 @@ class CreditCardGen {
   }
 
 //add item to list
-  addItemToList(String key, CreditCard t) async {
+  addItemToList(String key, Debt t) async {
     try {
       List<String> dataListFromdb = MainStances.prefs.getStringList(key) ?? [];
       dataListFromdb.add(t.toJson());
@@ -30,7 +29,7 @@ class CreditCardGen {
   }
 
 //update item list
-  updateItemList(String key, CreditCard t) async {
+  updateItemList(String key, Debt t) async {
     try {
       List<String> dataListFromdb = MainStances.prefs.getStringList(key) ?? [];
       dataListFromdb
@@ -43,7 +42,7 @@ class CreditCardGen {
   }
 
 //delete item list
-  deleteItemList(String key, CreditCard t) async {
+  deleteItemList(String key, Debt t) async {
     try {
       List<String> dataListFromdb = MainStances.prefs.getStringList(key) ?? [];
       dataListFromdb

@@ -38,7 +38,7 @@ class CreditCard {
   double getTotalOfMonthDebts() {
     totalMonth = 0;
     for (var element in debts) {
-      totalMonth += element.getCurrentInstallment().value;
+      totalMonth += element.getCurrentInstallment().total;
     }
     return totalMonth;
   }
@@ -77,8 +77,8 @@ class CreditCard {
       id: map['id'] as String,
       name: map['name'] as String,
       imgPath: map['imgPath'] as String,
-      balanceAvailableLimit: map['balanceAvailableLimit'] as double,
-      balanceTotalLimit: map['balanceTotalLimit'] as double,
+      balanceAvailableLimit: double.parse(map['balanceAvailableLimit'].toString()),
+      balanceTotalLimit: double.parse(map['balanceTotalLimit'].toString()),
       invoiceClosingDay: map['invoiceClosingDay'] as int,
       lastPaid: DateTime.fromMillisecondsSinceEpoch(map['lastPaid'] as int),
       debts: List<Debt>.from(

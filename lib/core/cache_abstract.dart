@@ -29,8 +29,7 @@ class Cache<T> {
   updateItemList(String key, T t) async {
     try {
       List<String> dataListFromdb = prefs.getStringList(key) ?? [];
-      dataListFromdb.removeWhere(
-          (element) => (t as dynamic).id == json.decode(element).id);
+      dataListFromdb.removeWhere((element) => (t as dynamic).id == json.decode(element).id);
       dataListFromdb.add((t as dynamic).toJson());
       prefs.setStringList(key, dataListFromdb);
     } catch (e, _) {
@@ -43,8 +42,7 @@ class Cache<T> {
   deleteItemList(String key, T t) async {
     try {
       List<String> dataListFromdb = prefs.getStringList(key) ?? [];
-      dataListFromdb.removeWhere(
-          (element) => (t as dynamic).id == json.decode(element).id);
+      dataListFromdb.removeWhere((element) => (t as dynamic).id == json.decode(element).id);
       prefs.setStringList(key, dataListFromdb);
     } catch (e, _) {
       print(e);
@@ -53,3 +51,5 @@ class Cache<T> {
     }
   }
 }
+
+
